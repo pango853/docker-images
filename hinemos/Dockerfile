@@ -14,6 +14,8 @@ ARG VERSION=${VERSION:-${VER}.1}
 
 # Set some labels to describe this image
 LABEL name="Hinemos $VER"
+LABEL vendor="Pango853"
+LABEL license="MIT"
 
 
 # Export environment variables
