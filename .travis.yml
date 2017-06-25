@@ -3,19 +3,27 @@ services:
   - docker
 
 env:
-  - IMG=hinemos VERSION=6.0.1 VARIENT=
+  - IMG=hinemos RELEASE=6.0.1 VARIENT=
+  - IMG=hinemos-agent4test RELEASE=6.0.1 VARIENT=
+  - IMG=hinemos RELEASE=6.0.0 VARIENT=
+  - IMG=hinemos-agent4test RELEASE=6.0.0 VARIENT=
 
 install:
-  - git clone https://github.com/pango853/docker-images.git ~/docker-images
+  # Travis will clone the master branch automatically
+  #- git clone https://github.com/pango853/docker-images.git ~/docker-images
 
 before_script:
-  - env | sort
+  # List env variables for debug
+  #- env | sort
+  # Travis will clone and cd into the project directory, so just cd an subfolder to start
   - cd $IMG
-  - IMGTAG="${IMG}:${VERSION}${VARIANT:+-$VARIANT}"
+  - IMGTAG="${IMG}:${RELEASE}${VARIANT:+-$VARIANT}"
 
 script:
   - docker build -t "$IMGTAG" "${VARIANT:-.}"
+  - docker run -d "$IMGTAG"
 
 after_script:
   - docker images
+  - docker ps | grep -q "$IMGTAG"
 
