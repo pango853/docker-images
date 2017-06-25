@@ -15,7 +15,6 @@ before_script:
 
 script:
   - docker build -t "$IMGTAG" "${VARIANT:-.}"
-  - ~/official-images/test/run.sh "$IMGTAG"
 
 after_script:
   - docker images
