@@ -10,7 +10,7 @@ install:
 
 before_script:
   - env | sort
-  - cd "~/docker-images/$IMG"
+  - cd $IMG
   - IMGTAG="${IMG}:${VERSION}${VARIANT:+-$VARIANT}"
 
 script:
