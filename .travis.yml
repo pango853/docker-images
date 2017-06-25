@@ -1,0 +1,22 @@
+language: bash
+services:
+  - docker
+
+env:
+  - IMG=hinemos VERSION=6.0.1 VARIENT=
+
+install:
+  - git clone https://github.com/pango853/docker-images.git ~/docker-images
+
+before_script:
+  - env | sort
+  - cd "~/docker-images/$IMG"
+  - IMGTAG="${IMG}:${VERSION}${VARIANT:+-$VARIANT}"
+
+script:
+  - docker build -t "$IMGTAG" "${VARIANT:-.}"
+  - ~/official-images/test/run.sh "$IMGTAG"
+
+after_script:
+  - docker images
+
