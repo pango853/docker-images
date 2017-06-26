@@ -25,5 +25,5 @@ script:
 
 after_script:
   - docker images
-  - docker ps | grep -q "$IMGTAG"
+  - docker ps -a
 
